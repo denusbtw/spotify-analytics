@@ -1,4 +1,6 @@
 from pathlib import Path
+from telnetlib import AUTHENTICATION
+
 import environ
 import os
 
@@ -20,10 +22,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.spotify",
 
     "spotify_analytics.core",
     "spotify_analytics.users",
 ]
+
+SOCIALACCOUNT_STORE_TOKENS = True
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -33,6 +45,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
+]
+
+LOGIN_URL = "spotify_login"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend"
 ]
 
 ROOT_URLCONF = 'config.urls'
