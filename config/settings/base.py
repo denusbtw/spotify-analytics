@@ -1,5 +1,4 @@
 from pathlib import Path
-from telnetlib import AUTHENTICATION
 
 import environ
 import os
@@ -24,10 +23,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    "rest_framework",
+    "rest_framework.authtoken",
+
+    "dj_rest_auth",
+
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.spotify",
+
+    "corsheaders",
 
     "spotify_analytics.core",
     "spotify_analytics.users",
@@ -38,6 +44,7 @@ SOCIALACCOUNT_STORE_TOKENS = True
 SITE_ID = 1
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,6 +54,31 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+    )
+}
+
+REST_AUTH = {
+    "USE_JWT": True,
+    "JWT_AUTH_COOKIE": "access-token",
+    "JWT_AUTH_REFRESH_COOKIE": "refresh-token",
+    "JWT_AUTH_HTTPONLY": True,
+    "JWT_AUTH_SECURE": False,
+}
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5173",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:5173",
+]
+
 
 LOGIN_URL = "spotify_login"
 LOGIN_REDIRECT_URL = "/"
