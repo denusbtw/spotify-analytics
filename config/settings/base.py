@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 
     "spotify_analytics.core",
     "spotify_analytics.users",
+    "spotify_analytics.imports",
 ]
 
 SOCIALACCOUNT_STORE_TOKENS = True
@@ -58,6 +59,7 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+        'rest_framework.authentication.SessionAuthentication',
     )
 }
 
@@ -142,5 +144,8 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
