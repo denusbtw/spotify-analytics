@@ -1,7 +1,8 @@
-from rest_framework import views, permissions, response, status, generics
+from rest_framework import views, permissions, response, status
 
 from .models import ImportJob
 from .serializers import MultipleFileUploadSerializer
+from .tasks import parse_import_job_file
 
 
 class MultipleFileUploadView(views.APIView):
@@ -22,6 +23,7 @@ class MultipleFileUploadView(views.APIView):
                 status=ImportJob.Status.UPLOADED
             )
             created_jobs.append(import_job.id)
+            parse_import_job_file.delay(import_job.id)
 
         return response.Response(
             {"import_job_ids": created_jobs},

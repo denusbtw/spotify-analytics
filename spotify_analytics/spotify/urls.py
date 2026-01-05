@@ -1,7 +1,11 @@
 from django.urls import path
 
-from spotify_analytics.spotify.views import CurrentUserProfileView, UserTopItemsView, UserRecentlyPlayedView, \
+from spotify_analytics.spotify.views import (
+    CurrentUserProfileView,
+    UserTopItemsView,
+    UserRecentlyPlayedView,
     UserTopGenresView
+)
 
 app_name = "spotify"
 urlpatterns = [

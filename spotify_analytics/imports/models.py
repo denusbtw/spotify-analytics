@@ -27,11 +27,19 @@ class ImportJob(UUIDModel, TimestampedModel):
     error = models.TextField(blank=True, default="")
 
 
-# class ParsedSpotifyTrack(UUIDModel, TimestampedModel):
-#     job = models.ForeignKey(
-#         ImportJob,
-#         on_delete=models.CASCADE,
-#         related_name="parsed_spotify_items"
-#     )
-#
-#     spotify_id = models.CharField(max_length=22)
+class ParsedSpotifyListen(UUIDModel, TimestampedModel):
+    import_job = models.ForeignKey(
+        ImportJob,
+        on_delete=models.CASCADE,
+        related_name="parsed_listens"
+    )
+    ts = models.DateTimeField()
+    platform = models.CharField(max_length=20)
+    ms_played = models.PositiveIntegerField()
+    spotify_track_id = models.CharField(max_length=22)
+    reason_start = models.CharField(max_length=20)
+    reason_end = models.CharField(max_length=20)
+    shuffle = models.BooleanField()
+    skipped = models.BooleanField()
+    offline = models.BooleanField(null=True)
+    offline_timestamp = models.PositiveBigIntegerField(null=True)
