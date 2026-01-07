@@ -8,4 +8,5 @@ urlpatterns = [
     path("auth/", include("dj_rest_auth.urls")),
     path("spotify/", include("spotify_analytics.spotify.urls")),
     path("imports/", include("spotify_analytics.imports.urls")),
+    path("analytics/", include("spotify_analytics.analytics.urls")),
 ]

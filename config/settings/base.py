@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "spotify_analytics.core",
     "spotify_analytics.users",
     "spotify_analytics.imports",
+    "spotify_analytics.analytics",
 ]
 
 SOCIALACCOUNT_STORE_TOKENS = True
