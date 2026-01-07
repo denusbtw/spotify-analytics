@@ -73,6 +73,7 @@ class Track(UUIDModel, TimestampedModel):
 class ListeningHistory(UUIDModel, TimestampedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     track = models.ForeignKey(Track, on_delete=models.CASCADE)
+    ip_addr = models.GenericIPAddressField()
     played_at = models.DateTimeField()
     platform = models.CharField(max_length=20)
     ms_played = models.PositiveIntegerField()

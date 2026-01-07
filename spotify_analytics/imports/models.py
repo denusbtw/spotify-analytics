@@ -33,6 +33,7 @@ class ParsedSpotifyListen(UUIDModel, TimestampedModel):
         on_delete=models.CASCADE,
         related_name="parsed_listens"
     )
+    ip_addr = models.GenericIPAddressField()
     ts = models.DateTimeField()
     platform = models.CharField(max_length=20)
     ms_played = models.PositiveIntegerField()

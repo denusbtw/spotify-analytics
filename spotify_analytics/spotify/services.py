@@ -111,6 +111,12 @@ class SpotifyService:
             return response.json()
         return {"error": "Spotify API Error", "details": response.json()}
 
+    def get_top_tracks(self, time_range, limit=20, offset=0):
+        return self.get_user_top_items("tracks", time_range, limit, offset)
+
+    def get_top_artists(self, time_range, limit=20, offset=0):
+        return self.get_user_top_items("artists", time_range, limit, offset)
+
     def get_user_top_items(self, type_, time_range, limit=20, offset=0):
         if not self.token:
             return None
@@ -148,11 +154,7 @@ class SpotifyService:
         return {"error": "Spotify API Error", "details": response.json()}
 
     def get_user_top_genres(self, time_range, limit=10):
-        artists_data = self.get_user_top_items(
-            type_="artists",
-            time_range=time_range,
-            limit=50
-        )
+        artists_data = self.get_top_artists(time_range=time_range, limit=50)
 
         if not artists_data or "items" not in artists_data:
             return []
